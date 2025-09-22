@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шпаргалка по Docker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Шпаргалка по Docker</h1>
+            <p>Полное руководство по командам Docker и Docker Compose</p>
+        </div>
+    </header>
+
+    <nav id="main-nav">
+        <div class="container">
+            <ul>
+                <li><a href="#installation">Установка</a></li>
+                <li><a href="#registry">Реестры</a></li>
+                <li><a href="#containers">Контейнеры</a></li>
+                <li><a href="#images">Образы</a></li>
+                <li><a href="#network">Сеть</a></li>
+                <li><a href="#cleanup">Очистка</a></li>
+                <li><a href="#swarm">Docker Swarm</a></li>
+                <li><a href="#compose">Docker Compose</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section id="installation" class="section">
+            <h2>Установка Docker</h2>
+            
+            <div class="command-block">
+                <h3>Linux</h3>
+                <div class="command">
+                    <code>curl -sSL https://get.docker.com/ | sh</code>
+                    <span class="description">Установка Docker на Linux</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h3>Windows</h3>
+                <div class="command">
+                    <code>https://download.docker.com/win/stable/InstallDocker.msi</code>
+                    <span class="description">Скачать установщик для Windows</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h3>Mac</h3>
+                <div class="command">
+                    <code>https://download.docker.com/mac/stable/Docker.dmg</code>
+                    <span class="description">Скачать установщик для Mac</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="registry" class="section">
+            <h2>Реестры и репозитории Docker</h2>
+            
+            <div class="command-block">
+                <h3>Аутентификация</h3>
+                <div class="command">
+                    <code>docker login</code>
+                    <span class="description">Вход в реестр Docker Hub</span>
+                </div>
+                <div class="command">
+                    <code>docker login localhost:8080</code>
+                    <span class="description">Вход в локальный реестр</span>
+                </div>
+                <div class="command">
+                    <code>docker logout</code>
+                    <span class="description">Выход из реестра</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h3>Поиск образов</h3>
+                <div class="command">
+                    <code>docker search nginx</code>
+                    <span class="description">Поиск образов nginx</span>
+                </div>
+                <div class="command">
+                    <code>docker search --filter stars=3 nginx</code>
+                    <span class="description">Поиск образов с рейтингом от 3 звезд</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h3>Загрузка и выгрузка образов</h3>
+                <div class="command">
+                    <code>docker image pull nginx</code>
+                    <span class="description">Скачать образ nginx</span>
+                </div>
+                <div class="command">
+                    <code>docker image push username/nginx</code>
+                    <span class="description">Загрузить образ в реестр</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="containers" class="section">
+            <h2>Управление контейнерами</h2>
+            
+            <div class="command-block">
+                <h3>Создание и запуск</h3>
+                <div class="command">
+                    <code>docker container run -it ubuntu:latest</code>
+                    <span class="description">Запуск контейнера в интерактивном режиме</span>
+                </div>
+                <div class="command">
+                    <code>docker container run -d -p 80:80 nginx</code>
+                    <span class="description">Запуск в фоновом режиме с пробросом портов</span>
+                </div>
+                <div class="command">
+                    <code>docker container run -v /host:/container nginx</code>
+                    <span class="description">Запуск с монтированием томов</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h3>Управление состоянием</h3>
+                <div class="command">
+                    <code>docker container start mycontainer</code>
+                    <span class="description">Запуск контейнера</span>
+                </div>
+                <div class="command">
+                    <code>docker container stop mycontainer</code>
+                    <span class="description">Остановка контейнера</span>
+                </div>
+                <div class="command">
+                    <code>docker container restart mycontainer</code>
+                    <span class="description">Перезапуск контейнера</span>
+                </div>
+                <div class="command">
+                    <code>docker container pause mycontainer</code>
+                    <span class="description">Приостановка контейнера</span>
+                </div>
+                <div class="command">
+                    <code>docker container unpause mycontainer</code>
+                    <span class="description">Возобновление контейнера</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h3>Просмотр информации</h3>
+                <div class="command">
+                    <code>docker container ls</code>
+                    <span class="description">Список запущенных контейнеров</span>
+                </div>
+                <div class="command">
+                    <code>docker container ls -a</code>
+                    <span class="description">Список всех контейнеров</span>
+                </div>
+                <div class="command">
+                    <code>docker container logs mycontainer</code>
+                    <span class="description">Просмотр логов контейнера</span>
+                </div>
+                <div class="command">
+                    <code>docker container inspect mycontainer</code>
+                    <span class="description">Детальная информация о контейнере</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h3>Удаление</h3>
+                <div class="command">
+                    <code>docker container rm mycontainer</code>
+                    <span class="description">Удаление контейнера</span>
+                </div>
+                <div class="command">
+                    <code>docker container rm -f mycontainer</code>
+                    <span class="description">Принудительное удаление контейнера</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="images" class="section">
+            <h2>Управление образами</h2>
+            
+            <div class="command-block">
+                <h3>Просмотр и сборка</h3>
+                <div class="command">
+                    <code>docker image ls</code>
+                    <span class="description">Список образов</span>
+                </div>
+                <div class="command">
+                    <code>docker build -t myimage .</code>
+                    <span class="description">Сборка образа из Dockerfile</span>
+                </div>
+                <div class="command">
+                    <code>docker image history myimage</code>
+                    <span class="description">История сборки образа</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h3>Тегирование и экспорт</h3>
+                <div class="command">
+                    <code>docker image tag nginx myrepo/nginx</code>
+                    <span class="description">Тегирование образа</span>
+                </div>
+                <div class="command">
+                    <code>docker image save nginx > nginx.tar</code>
+                    <span class="description">Экспорт образа в архив</span>
+                </div>
+                <div class="command">
+                    <code>docker image load < nginx.tar</code>
+                    <span class="description">Импорт образа из архива</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h3>Удаление</h3>
+                <div class="command">
+                    <code>docker image rm nginx</code>
+                    <span class="description">Удаление образа</span>
+                </div>
+                <div class="command">
+                    <code>docker image prune</code>
+                    <span class="description">Удаление неиспользуемых образов</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="network" class="section">
+            <h2>Сеть в Docker</h2>
+            
+            <div class="command-block">
+                <h3>Управление сетями</h3>
+                <div class="command">
+                    <code>docker network ls</code>
+                    <span class="description">Список сетей</span>
+                </div>
+                <div class="command">
+                    <code>docker network create mynetwork</code>
+                    <span class="description">Создание сети</span>
+                </div>
+                <div class="command">
+                    <code>docker network inspect mynetwork</code>
+                    <span class="description">Информация о сети</span>
+                </div>
+                <div class="command">
+                    <code>docker network rm mynetwork</code>
+                    <span class="description">Удаление сети</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h3>Подключение контейнеров</h3>
+                <div class="command">
+                    <code>docker network connect mynetwork mycontainer</code>
+                    <span class="description">Подключение контейнера к сети</span>
+                </div>
+                <div class="command">
+                    <code>docker network disconnect mynetwork mycontainer</code>
+                    <span class="description">Отключение контейнера от сети</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="cleanup" class="section">
+            <h2>Очистка Docker</h2>
+            
+            <div class="command-block">
+                <h3>Очистка контейнеров</h3>
+                <div class="command">
+                    <code>docker container prune</code>
+                    <span class="description">Удаление остановленных контейнеров</span>
+                </div>
+                <div class="command">
+                    <code>docker rm $(docker ps -aq)</code>
+                    <span class="description">Удаление всех контейнеров</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h3>Очистка образов</h3>
+                <div class="command">
+                    <code>docker image prune</code>
+                    <span class="description">Удаление неиспользуемых образов</span>
+                </div>
+                <div class="command">
+                    <code>docker image prune -a</code>
+                    <span class="description">Удаление всех неиспользуемых образов</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h3>Полная очистка</h3>
+                <div class="command">
+                    <code>docker system prune</code>
+                    <span class="description">Очистка системы Docker</span>
+                </div>
+                <div class="command">
+                    <code>docker system prune -a</code>
+                    <span class="description">Полная очистка системы</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="swarm" class="section">
+            <h2>Docker Swarm</h2>
+            
+            <div class="command-block">
+                <h3>Инициализация и управление</h3>
+                <div class="command">
+                    <code>docker swarm init</code>
+                    <span class="description">Инициализация Swarm</span>
+                </div>
+                <div class="command">
+                    <code>docker swarm join-token worker</code>
+                    <span class="description">Токен для подключения worker</span>
+                </div>
+                <div class="command">
+                    <code>docker swarm join-token manager</code>
+                    <span class="description">Токен для подключения manager</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h3>Сервисы</h3>
+                <div class="command">
+                    <code>docker service ls</code>
+                    <span class="description">Список сервисов</span>
+                </div>
+                <div class="command">
+                    <code>docker service create --name web nginx</code>
+                    <span class="description">Создание сервиса</span>
+                </div>
+                <div class="command">
+                    <code>docker service scale web=5</code>
+                    <span class="description">Масштабирование сервиса</span>
+                </div>
+                <div class="command">
+                    <code>docker service update --image nginx:latest web</code>
+                    <span class="description">Обновление сервиса</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="compose" class="section">
+            <h2>Docker Compose</h2>
+            
+            <div class="command-block">
+                <h3>Основные команды</h3>
+                <div class="command">
+                    <code>docker-compose up</code>
+                    <span class="description">Запуск сервисов</span>
+                </div>
+                <div class="command">
+                    <code>docker-compose up -d</code>
+                    <span class="description">Запуск в фоновом режиме</span>
+                </div>
+                <div class="command">
+                    <code>docker-compose down</code>
+                    <span class="description">Остановка сервисов</span>
+                </div>
+                <div class="command">
+                    <code>docker-compose ps</code>
+                    <span class="description">Статус сервисов</span>
+                </div>
+                <div class="command">
+                    <code>docker-compose logs</code>
+                    <span class="description">Просмотр логов</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h3>Пример docker-compose.yml</h3>
+                <pre><code>version: '3.8'
+services:
+  web:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./html:/usr/share/nginx/html
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: myapp
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:</code></pre>
+            </div>
+
+            <div class="command-block">
+                <h3>Управление сервисами</h3>
+                <div class="command">
+                    <code>docker-compose build</code>
+                    <span class="description">Пересборка образов</span>
+                </div>
+                <div class="command">
+                    <code>docker-compose exec web bash</code>
+                    <span class="description">Выполнение команды в сервисе</span>
+                </div>
+                <div class="command">
+                    <code>docker-compose restart</code>
+                    <span class="description">Перезапуск сервисов</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Шпаргалка по Docker - Полное руководство по командам Docker</p>
+            <p>Основано на материалах Painless Docker Course</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
