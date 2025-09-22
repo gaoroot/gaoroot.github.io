@@ -1,35 +1,264 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🎉 С днём рождения, Семён! 🎂</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unix Toolbox - Руководство по системному администрированию</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="marquee-container">
-    <div class="marquee">
-      <span>🎉 С ДНЁМ РОЖДЕНИЯ, СЕМЁН! 🎂</span>
-      <span>✨ 11 ЛЕТ - ЭТО КРУТО! ✨</span>
-      <span>🎈 УРААА! ПОЗДРАВЛЯЕМ! 🎈</span>
-      <span>💖 ЖЕЛАЕМ ИГРУШЕК И КОНФЕТ! 💖</span>
-    </div>
-  </div>
+    <header>
+        <div class="container">
+            <h1>Unix Toolbox</h1>
+            <p>Полное руководство по системному администрированию Linux/Unix</p>
+        </div>
+    </header>
 
-  <div class="wind-effect"></div>
-  
-  <div class="content">
-    <h1>С днём рождения, Семён! 🎉</h1>
-    <p>Поздравляю с 11-летием! 🎂<br>
-       Желаю крутых игрушек, 🎮<br>
-       вкусных конфет, 🍭<br>
-       и чтобы все мечты сбывались! ⭐<br>
-       Будь самым счастливым мальчиком! 😊</p>
-    <div class="cake" id="birthdayCake">🎂</div>
-  </div>
+    <nav id="main-nav">
+        <div class="container">
+            <ul>
+                <li><a href="#system-info">Системная информация</a></li>
+                <li><a href="#users">Пользователи</a></li>
+                <li><a href="#processes">Процессы</a></li>
+                <li><a href="#network">Сеть</a></li>
+                <li><a href="#files">Файлы</a></li>
+                <li><a href="#docker">Docker</a></li>
+                <li><a href="#docker-compose">Docker Compose</a></li>
+            </ul>
+        </div>
+    </nav>
 
-  <div class="balloons" id="balloons"></div>
+    <main class="container">
+        <section id="system-info" class="section">
+            <h2>Системная информация</h2>
+            <div class="command-block">
+                <h3>Информация о системе</h3>
+                <div class="command">
+                    <code>uname -a</code>
+                    <span class="description">Вся информация о системе</span>
+                </div>
+                <div class="command">
+                    <code>cat /etc/*release</code>
+                    <span class="description">Информация о дистрибутиве</span>
+                </div>
+                <div class="command">
+                    <code>lscpu</code>
+                    <span class="description">Информация о процессоре</span>
+                </div>
+            </div>
+        </section>
 
-  <script src="script.js"></script>
+        <section id="users" class="section">
+            <h2>Управление пользователями</h2>
+            <div class="command-block">
+                <h3>Пользователи и группы</h3>
+                <div class="command">
+                    <code>whoami</code>
+                    <span class="description">Текущий пользователь</span>
+                </div>
+                <div class="command">
+                    <code>id</code>
+                    <span class="description">Информация о текущем пользователе</span>
+                </div>
+                <div class="command">
+                    <code>sudo useradd username</code>
+                    <span class="description">Добавить пользователя</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="processes" class="section">
+            <h2>Управление процессами</h2>
+            <div class="command-block">
+                <h3>Мониторинг процессов</h3>
+                <div class="command">
+                    <code>ps aux</code>
+                    <span class="description">Все запущенные процессы</span>
+                </div>
+                <div class="command">
+                    <code>top</code>
+                    <span class="description">Интерактивный монитор процессов</span>
+                </div>
+                <div class="command">
+                    <code>kill -9 PID</code>
+                    <span class="description">Принудительно завершить процесс</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="network" class="section">
+            <h2>Сетевые команды</h2>
+            <div class="command-block">
+                <h3>Сетевая диагностика</h3>
+                <div class="command">
+                    <code>ip addr show</code>
+                    <span class="description">Сетевые интерфейсы</span>
+                </div>
+                <div class="command">
+                    <code>ping google.com</code>
+                    <span class="description">Проверка соединения</span>
+                </div>
+                <div class="command">
+                    <code>netstat -tulpn</code>
+                    <span class="description">Открытые порты</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="files" class="section">
+            <h2>Работа с файлами</h2>
+            <div class="command-block">
+                <h3>Основные команды</h3>
+                <div class="command">
+                    <code>ls -la</code>
+                    <span class="description">Список файлов с деталями</span>
+                </div>
+                <div class="command">
+                    <code>find / -name filename</code>
+                    <span class="description">Поиск файла</span>
+                </div>
+                <div class="command">
+                    <code>grep "pattern" file</code>
+                    <span class="description">Поиск текста в файле</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="docker" class="section">
+            <h2>Docker</h2>
+            <div class="command-block">
+                <h3>Основные команды Docker</h3>
+                <div class="command">
+                    <code>docker --version</code>
+                    <span class="description">Проверка версии Docker</span>
+                </div>
+                <div class="command">
+                    <code>docker ps</code>
+                    <span class="description">Список запущенных контейнеров</span>
+                </div>
+                <div class="command">
+                    <code>docker ps -a</code>
+                    <span class="description">Все контейнеры (включая остановленные)</span>
+                </div>
+                <div class="command">
+                    <code>docker images</code>
+                    <span class="description">Список образов</span>
+                </div>
+                <div class="command">
+                    <code>docker run -it ubuntu bash</code>
+                    <span class="description">Запуск контейнера Ubuntu в интерактивном режиме</span>
+                </div>
+                <div class="command">
+                    <code>docker stop container_name</code>
+                    <span class="description">Остановка контейнера</span>
+                </div>
+                <div class="command">
+                    <code>docker rm container_name</code>
+                    <span class="description">Удаление контейнера</span>
+                </div>
+                <div class="command">
+                    <code>docker rmi image_name</code>
+                    <span class="description">Удаление образа</span>
+                </div>
+                <div class="command">
+                    <code>docker exec -it container_name bash</code>
+                    <span class="description">Вход в запущенный контейнер</span>
+                </div>
+                <div class="command">
+                    <code>docker logs container_name</code>
+                    <span class="description">Просмотр логов контейнера</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h3>Dockerfile пример</h3>
+                <pre><code>FROM ubuntu:20.04
+RUN apt-get update && apt-get install -y nginx
+COPY index.html /var/www/html/
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]</code></pre>
+                <p class="description">Сборка образа: <code>docker build -t my-nginx .</code></p>
+            </div>
+        </section>
+
+        <section id="docker-compose" class="section">
+            <h2>Docker Compose</h2>
+            <div class="command-block">
+                <h3>Основные команды</h3>
+                <div class="command">
+                    <code>docker-compose up</code>
+                    <span class="description">Запуск сервисов</span>
+                </div>
+                <div class="command">
+                    <code>docker-compose up -d</code>
+                    <span class="description">Запуск в фоновом режиме</span>
+                </div>
+                <div class="command">
+                    <code>docker-compose down</code>
+                    <span class="description">Остановка сервисов</span>
+                </div>
+                <div class="command">
+                    <code>docker-compose ps</code>
+                    <span class="description">Статус сервисов</span>
+                </div>
+                <div class="command">
+                    <code>docker-compose logs</code>
+                    <span class="description">Просмотр логов</span>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <h3>Пример docker-compose.yml</h3>
+                <pre><code>version: '3.8'
+services:
+  web:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./html:/usr/share/nginx/html
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: myapp
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:</code></pre>
+            </div>
+
+            <div class="command-block">
+                <h3>Полезные команды Docker Compose</h3>
+                <div class="command">
+                    <code>docker-compose build</code>
+                    <span class="description">Пересборка образов</span>
+                </div>
+                <div class="command">
+                    <code>docker-compose exec service_name command</code>
+                    <span class="description">Выполнение команды в сервисе</span>
+                </div>
+                <div class="command">
+                    <code>docker-compose restart</code>
+                    <span class="description">Перезапуск сервисов</span>
+                </div>
+                <div class="command">
+                    <code>docker-compose pull</code>
+                    <span class="description">Обновление образов</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Unix Toolbox - Руководство по системному администрированию</p>
+            <p>Дополнено разделами по Docker и Docker Compose</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
