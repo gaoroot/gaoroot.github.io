@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
+    <div id="app" v-if="isMounted">
         <div class="container">
             <!-- Звезда -->
             <div class="star" 
@@ -42,6 +42,10 @@
             </div>
         </div>
     </div>
+
+    <!-- Снежинки будут добавляться сюда -->
+    <div id="snowflakes-container"></div>
+
     <script src="script.js"></script>
 </body>
 </html>

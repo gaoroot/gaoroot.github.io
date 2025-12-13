@@ -3,6 +3,7 @@ const { createApp } = Vue;
 createApp({
     data() {
         return {
+            isMounted: false,
             // Цвета для шариков
             colors: [
                 '#FF0000', // красный
@@ -11,9 +12,9 @@ createApp({
                 '#FF00FF', // фиолетовый
                 '#00FFFF', // голубой
                 '#FFA500', // оранжевый
-                '#FF1493', // розовый
-                '#7CFC00', // салатовый
                 '#9370DB', // пурпурный
+                '#7CFC00', // салатовый
+                '#FF1493', // розовый
                 '#00CED1'  // бирюзовый
             ],
             // Конфигурация рядов ёлки
@@ -47,23 +48,34 @@ createApp({
             }
         },
         
-        // Создание снежинок (опционально)
+        // Создание снежинок - безопасная версия
         createSnowflakes() {
-            const snowContainer = document.createElement('div');
-            snowContainer.className = 'snowflakes';
-            document.querySelector('.container').appendChild(snowContainer);
-            
-            for (let i = 0; i < 50; i++) {
-                const snowflake = document.createElement('div');
-                snowflake.className = 'snowflake';
-                snowflake.innerHTML = '❄';
-                snowflake.style.left = Math.random() * 100 + 'vw';
-                snowflake.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                snowflake.style.animationDelay = Math.random() * 5 + 's';
-                snowflake.style.fontSize = (Math.random() * 10 + 10) + 'px';
-                snowflake.style.opacity = Math.random() * 0.5 + 0.3;
-                snowContainer.appendChild(snowflake);
-            }
+            // Ждем пока DOM полностью загрузится
+            setTimeout(() => {
+                const snowContainer = document.getElementById('snowflakes-container');
+                
+                if (!snowContainer) {
+                    console.log('Контейнер для снежинок не найден');
+                    return;
+                }
+                
+                // Очищаем старые снежинки
+                snowContainer.innerHTML = '';
+                
+                for (let i = 0; i < 50; i++) {
+                    const snowflake = document.createElement('div');
+                    snowflake.className = 'snowflake';
+                    snowflake.innerHTML = '❄';
+                    snowflake.style.left = Math.random() * 100 + 'vw';
+                    snowflake.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                    snowflake.style.animationDelay = Math.random() * 5 + 's';
+                    snowflake.style.fontSize = (Math.random() * 10 + 10) + 'px';
+                    snowflake.style.opacity = Math.random() * 0.5 + 0.3;
+                    
+                    // Добавляем снежинку в контейнер
+                    snowContainer.appendChild(snowflake);
+                }
+            }, 100);
         },
         
         // Изменение скорости мигания звезды
@@ -74,6 +86,7 @@ createApp({
         }
     },
     mounted() {
+        this.isMounted = true;
         this.createTree();
         this.createSnowflakes();
         this.changeStarSpeed();
@@ -82,5 +95,10 @@ createApp({
         setInterval(() => {
             this.createTree();
         }, 10000);
+        
+        // Пересоздаем снежинки при изменении размера окна
+        window.addEventListener('resize', () => {
+            this.createSnowflakes();
+        });
     }
 }).mount('#app');
