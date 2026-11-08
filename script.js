@@ -1,104 +1,51 @@
-const { createApp } = Vue;
+const root = document.documentElement;
+const themeToggle = document.getElementById("themeToggle");
+const themeIcon = themeToggle.querySelector(".theme-icon");
+const themeLabel = themeToggle.querySelector(".theme-label");
+const formulaField = document.getElementById("formulaField");
 
-createApp({
-    data() {
-        return {
-            isMounted: false,
-            // Цвета для шариков
-            colors: [
-                '#FF0000', // красный
-                '#00FF00', // зеленый
-                '#FFFF00', // желтый
-                '#FF00FF', // фиолетовый
-                '#00FFFF', // голубой
-                '#FFA500', // оранжевый
-                '#9370DB', // пурпурный
-                '#7CFC00', // салатовый
-                '#FF1493', // розовый
-                '#00CED1'  // бирюзовый
-            ],
-            // Конфигурация рядов ёлки
-            treeRows: [],
-            starSpeed: 800
-        }
-    },
-    methods: {
-        // Создание ёлки
-        createTree() {
-            const rows = 8;
-            this.treeRows = [];
-            
-            for (let i = 0; i < rows; i++) {
-                const ballsCount = i + 3; // Количество шариков в ряду
-                const row = [];
-                
-                for (let j = 0; j < ballsCount; j++) {
-                    const randomColor = this.colors[Math.floor(Math.random() * this.colors.length)];
-                    const randomSpeed = 500 + Math.random() * 1500; // Скорость мигания
-                    const randomDelay = Math.random() * 1000; // Задержка анимации
-                    
-                    row.push({
-                        color: randomColor,
-                        speed: randomSpeed,
-                        delay: randomDelay
-                    });
-                }
-                
-                this.treeRows.push(row);
-            }
-        },
-        
-        // Создание снежинок - безопасная версия
-        createSnowflakes() {
-            // Ждем пока DOM полностью загрузится
-            setTimeout(() => {
-                const snowContainer = document.getElementById('snowflakes-container');
-                
-                if (!snowContainer) {
-                    console.log('Контейнер для снежинок не найден');
-                    return;
-                }
-                
-                // Очищаем старые снежинки
-                snowContainer.innerHTML = '';
-                
-                for (let i = 0; i < 50; i++) {
-                    const snowflake = document.createElement('div');
-                    snowflake.className = 'snowflake';
-                    snowflake.innerHTML = '❄';
-                    snowflake.style.left = Math.random() * 100 + 'vw';
-                    snowflake.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                    snowflake.style.animationDelay = Math.random() * 5 + 's';
-                    snowflake.style.fontSize = (Math.random() * 10 + 10) + 'px';
-                    snowflake.style.opacity = Math.random() * 0.5 + 0.3;
-                    
-                    // Добавляем снежинку в контейнер
-                    snowContainer.appendChild(snowflake);
-                }
-            }, 100);
-        },
-        
-        // Изменение скорости мигания звезды
-        changeStarSpeed() {
-            setInterval(() => {
-                this.starSpeed = 400 + Math.random() * 1200;
-            }, 3000);
-        }
-    },
-    mounted() {
-        this.isMounted = true;
-        this.createTree();
-        this.createSnowflakes();
-        this.changeStarSpeed();
-        
-        // Периодическое обновление цветов шариков
-        setInterval(() => {
-            this.createTree();
-        }, 10000);
-        
-        // Пересоздаем снежинки при изменении размера окна
-        window.addEventListener('resize', () => {
-            this.createSnowflakes();
-        });
-    }
-}).mount('#app');
+// Создаём формулы с разными параметрами движения.
+const formulas = [
+  "E = mc²", "a² + b² = c²", "∫ f(x) dx", "π ≈ 3.14159",
+  "eⁱᵖ + 1 = 0", "F = ma", "∑ n = n(n+1)/2", "√(x² + y²)",
+  "lim x→∞", "∇ × E = −∂B/∂t", "sin²x + cos²x = 1",
+  "Δ = b² − 4ac", "P(A) = n(A) / n(Ω)", "x = (−b ± √Δ) / 2a",
+  "∂²u / ∂t² = c²∇²u", "λ = h / p", "aₙ = a₁ + (n−1)d"
+];
+
+formulas.forEach((formula, index) => {
+  const item = document.createElement("span");
+  item.className = "formula";
+  item.textContent = formula;
+  item.style.setProperty("--left", `${(index * 37 + 7) % 96}%`);
+  item.style.setProperty("--size", `${16 + (index % 5) * 7}px`);
+  item.style.setProperty("--duration", `${18 + (index % 7) * 4}s`);
+  item.style.setProperty("--delay", `${-((index * 3) % 25)}s`);
+  item.style.setProperty("--drift", `${(index % 2 ? 1 : -1) * (20 + index % 5 * 12)}px`);
+  item.style.setProperty("--rotation", `${(index % 2 ? 1 : -1) * (4 + index % 6)}deg`);
+  formulaField.appendChild(item);
+});
+
+function applyTheme(theme) {
+  root.dataset.theme = theme;
+  const isDark = theme === "dark";
+  themeIcon.textContent = isDark ? "☀" : "☾";
+  themeLabel.textContent = isDark ? "Светлая тема" : "Тёмная тема";
+  themeToggle.setAttribute(
+    "aria-label",
+    isDark ? "Переключить на светлую тему" : "Переключить на тёмную тему"
+  );
+  themeToggle.title = isDark ? "Включить светлую тему" : "Включить тёмную тему";
+}
+
+const savedTheme = localStorage.getItem("semen-page-theme");
+const preferredTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
+  ? "dark"
+  : "light";
+applyTheme(savedTheme || preferredTheme);
+
+themeToggle.addEventListener("click", () => {
+  const nextTheme = root.dataset.theme === "dark" ? "light" : "dark";
+  applyTheme(nextTheme);
+  localStorage.setItem("semen-page-theme", nextTheme);
+});

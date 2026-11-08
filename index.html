@@ -1,51 +1,30 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Новогодняя Ёлка</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#10111c">
+  <title>Привет, Семён!</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
-    <div id="app" v-if="isMounted">
-        <div class="container">
-            <!-- Звезда -->
-            <div class="star" 
-                 :style="{
-                     animation: `twinkle ${starSpeed}ms infinite alternate`
-                 }">
-                ★
-            </div>
+  <main class="page">
+    <div class="formula-field" aria-hidden="true" id="formulaField"></div>
 
-            <!-- Ёлка из кружков -->
-            <div class="tree">
-                <div v-for="(row, rowIndex) in treeRows" 
-                     :key="rowIndex" 
-                     class="tree-row">
-                    <div v-for="(ball, ballIndex) in row" 
-                         :key="ballIndex" 
-                         class="ball"
-                         :style="{
-                             backgroundColor: ball.color,
-                             animation: `twinkle ${ball.speed}ms infinite alternate`,
-                             animationDelay: `${ball.delay}ms`
-                         }">
-                    </div>
-                </div>
-            </div>
+    <button class="theme-toggle" id="themeToggle" type="button"
+            aria-label="Переключить цветовую тему" title="Переключить тему">
+      <span class="theme-icon" aria-hidden="true">☀</span>
+      <span class="theme-label">Светлая тема</span>
+    </button>
 
-            <!-- Текст -->
-            <div class="greeting">
-                С Новым Годом!
-            </div>
-        </div>
-    </div>
+    <section class="greeting" aria-label="Приветствие">
+      <p class="eyebrow">Рады тебя видеть</p>
+      <h1>Привет, Семён</h1>
+      <p class="subtitle">Пусть сегодняшний день будет интересным.</p>
+    </section>
 
-    <!-- Снежинки будут добавляться сюда -->
-    <div id="snowflakes-container"></div>
-
-    <script src="script.js"></script>
+    <div class="signature" aria-hidden="true">∞ &nbsp; ∑ &nbsp; π</div>
+  </main>
 </body>
 </html>
